@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Privacy"
+  description="Privacy notice for adrien.brage.fr - a privacy-respecting personal website."
+>
+  <article class="prose max-w-none">
+    <h1 class="text-4xl font-bold mb-8">Privacy</h1>
+
+    <p class="text-lg">This site respects your privacy.</p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Analytics</h2>
+    <p>
+      I use <a
+        href="https://www.cloudflare.com/web-analytics/"
+        target="_blank"
+        rel="noopener noreferrer">Cloudflare Web Analytics</a
+      >, which:
+    </p>
+    <ul class="list-disc pl-6 space-y-2">
+      <li>Does not use cookies</li>
+      <li>Does not track you across sites</li>
+      <li>Does not collect personal information</li>
+      <li>Complies with GDPR, CCPA, and PECR</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">No Third-Party Tracking</h2>
+    <p>
+      This site has no Google Analytics, no Facebook pixels, no ads, and no
+      tracking scripts.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Hosting</h2>
+    <p>
+      This site is hosted on <a
+        href="https://pages.cloudflare.com/"
+        target="_blank"
+        rel="noopener noreferrer">Cloudflare Pages</a
+      >. Cloudflare may collect basic access logs (IP address, user agent) for
+      security and performance purposes. See{" "}
+      <a
+        href="https://www.cloudflare.com/privacypolicy/"
+        target="_blank"
+        rel="noopener noreferrer">Cloudflare's privacy policy</a
+      > for more details.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Images</h2>
+    <p>
+      Images are served from Cloudflare R2. No tracking or analytics are
+      performed on image requests.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Contact</h2>
+    <p>
+      If you have questions about privacy, reach out on{" "}
+      <a
+        href="https://twitter.com/AdrienBrault"
+        target="_blank"
+        rel="noopener noreferrer">Twitter</a
+      > or{" "}
+      <a
+        href="https://github.com/adrienbrault"
+        target="_blank"
+        rel="noopener noreferrer">GitHub</a
+      >.
+    </p>
+  </article>
+</BaseLayout>

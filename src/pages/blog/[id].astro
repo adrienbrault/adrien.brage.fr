@@ -1,0 +1,141 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// Get all posts for prev/next navigation
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf()
+);
+const currentIndex = sortedPosts.findIndex((p) => p.id === post.id);
+const prevPost = sortedPosts[currentIndex + 1]; // older
+const nextPost = sortedPosts[currentIndex - 1]; // newer
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  type="article"
+  publishedAt={post.data.publishedAt}
+  updatedAt={post.data.updatedAt}
+  ogImage={post.data.ogImage}
+  canonicalUrl={post.data.canonicalUrl}
+>
+  <article>
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold mb-4">{post.data.title}</h1>
+      <div class="flex flex-wrap items-center gap-4 text-[var(--color-text-muted)]">
+        <time datetime={post.data.publishedAt.toISOString()}>
+          {
+            post.data.publishedAt.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
+        </time>
+        {
+          post.data.updatedAt && (
+            <span>
+              (Updated:{" "}
+              {post.data.updatedAt.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+              )
+            </span>
+          )
+        }
+      </div>
+      {
+        post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-4">
+            {post.data.tags.map((tag: string) => (
+              <span class="px-2 py-1 text-sm bg-[var(--color-border)] rounded">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )
+      }
+    </header>
+
+    <div class="prose max-w-none">
+      <Content />
+    </div>
+
+    <footer class="mt-12 pt-8 border-t border-[var(--color-border)]">
+      <nav class="flex justify-between">
+        {
+          prevPost ? (
+            <a
+              href={`/blog/${prevPost.id}`}
+              class="group flex flex-col max-w-[45%]"
+            >
+              <span class="text-sm text-[var(--color-text-muted)]">
+                &larr; Previous
+              </span>
+              <span class="group-hover:text-[var(--color-accent)]">
+                {prevPost.data.title}
+              </span>
+            </a>
+          ) : (
+            <div />
+          )
+        }
+        {
+          nextPost ? (
+            <a
+              href={`/blog/${nextPost.id}`}
+              class="group flex flex-col items-end max-w-[45%] text-right"
+            >
+              <span class="text-sm text-[var(--color-text-muted)]">
+                Next &rarr;
+              </span>
+              <span class="group-hover:text-[var(--color-accent)]">
+                {nextPost.data.title}
+              </span>
+            </a>
+          ) : (
+            <div />
+          )
+        }
+      </nav>
+    </footer>
+  </article>
+
+  <!-- BlogPosting JSON-LD -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.data.title,
+      description: post.data.description,
+      datePublished: post.data.publishedAt.toISOString(),
+      dateModified: (post.data.updatedAt ?? post.data.publishedAt).toISOString(),
+      author: {
+        "@type": "Person",
+        name: "Adrien Brault",
+        url: "https://adrien.brage.fr/about",
+      },
+      publisher: {
+        "@type": "Person",
+        name: "Adrien Brault",
+      },
+      mainEntityOfPage: `https://adrien.brage.fr/blog/${post.id}`,
+    })}
+  />
+</BaseLayout>

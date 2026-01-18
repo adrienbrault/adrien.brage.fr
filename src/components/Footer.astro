@@ -1,0 +1,49 @@
+---
+const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  { href: "https://github.com/adrienbrault", label: "GitHub" },
+  { href: "https://twitter.com/AdrienBrault", label: "Twitter" },
+  { href: "https://www.linkedin.com/in/adrienbrault", label: "LinkedIn" },
+];
+
+const siteLinks = [
+  { href: "/rss.xml", label: "RSS" },
+  { href: "/privacy", label: "Privacy" },
+];
+---
+
+<footer class="w-full border-t border-[var(--color-border)] mt-auto">
+  <div
+    class="max-w-4xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+  >
+    <p class="text-sm text-[var(--color-text-muted)]">
+      &copy; {currentYear} Adrien Brault
+    </p>
+
+    <div class="flex gap-6 text-sm">
+      {
+        socialLinks.map(({ href, label }) => (
+          <a
+            href={href}
+            class="text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {label}
+          </a>
+        ))
+      }
+      {
+        siteLinks.map(({ href, label }) => (
+          <a
+            href={href}
+            class="text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors"
+          >
+            {label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</footer>

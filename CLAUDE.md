@@ -7,10 +7,10 @@ This document provides instructions for AI agents working on this codebase.
 Personal static site for Adrien Brault at `adrien.brage.fr`. Built with Astro, Tailwind CSS, and deployed to Cloudflare Pages.
 
 **Tech Stack:**
-- Framework: Astro 4.x (static site generation)
-- Styling: Tailwind CSS 3.x
-- Content: Markdown + MDX via Astro Content Collections
-- Interactive: React (via @astrojs/react) - only when needed
+- Framework: Astro 5.x (static site generation)
+- Styling: Tailwind CSS 4.x via `@tailwindcss/vite` plugin
+- Content: Markdown + MDX via Astro Content Collections (glob loader)
+- Interactive: React 19 (via @astrojs/react) - only when needed
 - Package Manager: **bun** (preferred over npm/yarn/pnpm)
 - Language: **TypeScript only** - no .js files allowed
 
@@ -19,12 +19,11 @@ Personal static site for Adrien Brault at `adrien.brage.fr`. Built with Astro, T
 ```bash
 # Development
 bun dev              # Start dev server at localhost:4321
-bun build            # Build for production
+bun build            # Build for production (PRIMARY FEEDBACK LOOP)
 bun preview          # Preview production build locally
 
 # Utilities
-bun run check        # Run Astro type checking
-bun run lint         # Run linter (if configured)
+bun run check        # Run Astro type checking (requires @astrojs/check)
 ```
 
 ## Project Structure
@@ -32,14 +31,68 @@ bun run lint         # Run linter (if configured)
 ```
 src/
 ├── components/      # Reusable Astro/React components
-├── content/         # Content collections (blog/, projects/)
-│   └── config.ts    # Content collections schema
-├── layouts/         # Page layouts (BaseLayout, PostLayout, etc.)
+├── content/         # Content files (blog/, projects/)
+├── content.config.ts  # Content collections schema (Astro 5 location!)
+├── layouts/         # Page layouts (BaseLayout, etc.)
 ├── pages/           # File-based routing
-├── styles/          # Global CSS and Tailwind config
+├── styles/          # Global CSS (global.css with @import "tailwindcss")
 └── lib/             # Utility functions and data
 public/              # Static assets (favicon, robots.txt, _headers)
-scripts/             # Build/utility scripts
+scripts/             # Build/utility scripts (if needed)
+```
+
+## Astro 5 Specifics
+
+### Content Collections
+
+**IMPORTANT:** Astro 5 uses a new content layer API:
+- Config file is `src/content.config.ts` (NOT `src/content/config.ts`)
+- Uses `loader: glob()` from `astro/loaders`
+- Entry identifier is `id` (NOT `slug`)
+- Use `render()` from `astro:content`, not from the entry
+
+```typescript
+// src/content.config.ts
+import { glob } from "astro/loaders";
+import { defineCollection, z } from "astro:content";
+
+const blog = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    publishedAt: z.coerce.date(),
+    // ...
+  }),
+});
+
+export const collections = { blog };
+```
+
+### Tailwind CSS 4
+
+**IMPORTANT:** `@astrojs/tailwind` is deprecated. Use the Vite plugin:
+
+```typescript
+// astro.config.ts
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  vite: {
+    plugins: [tailwindcss()],
+  },
+});
+```
+
+CSS setup in `src/styles/global.css`:
+```css
+@import "tailwindcss";
+
+/* Custom theme variables */
+@theme {
+  --color-bg: #ffffff;
+  /* ... */
+}
 ```
 
 ## Git Conventions
@@ -70,7 +123,7 @@ Follow **Conventional Commits** format:
 ```bash
 feat(blog): add post layout with prev/next navigation
 fix(theme): correct dark mode flash on initial load
-chore(deps): update astro to 4.x
+chore(deps): update astro to 5.x
 content(blog): add post about typed LLM outputs
 refactor(components): extract BaseHead from layout
 ```
@@ -95,7 +148,7 @@ git fetch origin main && git rebase origin/main
 ### TypeScript
 
 - **No .js files** - all code must be TypeScript (.ts, .tsx, .astro)
-- Use strict TypeScript settings
+- Extends `astro/tsconfigs/strict`
 - Prefer explicit types over `any`
 - Use interfaces for object shapes, types for unions/primitives
 
@@ -127,13 +180,11 @@ const { title, description } = Astro.props;
 ### Tailwind CSS
 
 - Use Tailwind utilities directly in templates
+- Use CSS variables for theming: `var(--color-bg)`, `var(--color-text)`
+- Dark mode: use `dark:` prefix with class strategy (set on `<html>`)
 - Extract repeated patterns to components, not CSS classes
-- Use `@apply` sparingly, prefer utility classes
-- Dark mode: use `dark:` prefix with class strategy
 
 ### Content Collections
-
-Blog posts and projects use Astro Content Collections with Zod schemas in `src/content/config.ts`.
 
 **Blog frontmatter:**
 ```yaml
@@ -155,19 +206,19 @@ draft: false
 
 Since Cloudflare Pages deployment happens only at the end, use these feedback loops:
 
-### 1. Type Checking
-```bash
-bun run check        # Astro's built-in type checker
-```
-
-### 2. Build Verification
+### 1. Build Verification (PRIMARY)
 ```bash
 bun build            # Must complete without errors
 ```
 
-### 3. Preview Testing
+### 2. Preview Testing
 ```bash
-bun preview          # Test production build locally
+bun preview          # Test production build locally at localhost:4321
+```
+
+### 3. Type Checking (Optional)
+```bash
+bun run check        # Astro's built-in type checker
 ```
 
 ### 4. Manual Verification Checklist
@@ -186,15 +237,7 @@ Before committing significant changes:
 
 ## Progress Tracking
 
-Use `PROGRESS.md` in the repo root to track implementation status. Update it as work progresses:
-
-```markdown
-## Phase 1: Foundation
-- [x] Initialize Astro project
-- [x] Set up Tailwind
-- [ ] Create base layout  <- currently working
-- [ ] Build home page
-```
+Use `PROGRESS.md` in the repo root to track implementation status. Update it as work progresses.
 
 ## File Naming Conventions
 
@@ -202,6 +245,7 @@ Use `PROGRESS.md` in the repo root to track implementation status. Update it as 
 - Pages: kebab-case or index (`about.astro`, `blog/index.astro`)
 - Content: kebab-case (`my-first-post.mdx`)
 - Utilities: camelCase (`formatDate.ts`)
+- Dynamic routes: `[id].astro` (Astro 5 uses `id`, not `slug`)
 
 ## Important Notes
 
@@ -210,6 +254,7 @@ Use `PROGRESS.md` in the repo root to track implementation status. Update it as 
 3. **Minimal dependencies**: Bun has built-in capabilities; avoid adding packages unless truly needed
 4. **Privacy-focused**: No tracking except Cloudflare Web Analytics (added post-deploy)
 5. **Performance**: Minimize client-side JS; Astro's strength is static HTML
+6. **Build is truth**: Always run `bun build` to verify changes work
 
 ## External Resources
 
