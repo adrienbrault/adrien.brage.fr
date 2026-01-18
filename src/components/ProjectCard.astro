@@ -1,0 +1,88 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  url?: string;
+  repo?: string;
+  tags: string[];
+  featured?: boolean;
+  year?: number;
+  status: "active" | "maintained" | "archived";
+}
+
+const { title, description, url, repo, tags, featured = false, year, status } = Astro.props;
+---
+
+<div class="p-6 border border-[var(--color-border)] rounded-lg hover:border-[var(--color-accent)] transition-colors">
+  <div class="flex items-start justify-between gap-4">
+    <div>
+      <h2 class="text-xl font-semibold">
+        {url ? (
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-[var(--color-accent)]"
+          >
+            {title}
+          </a>
+        ) : (
+          title
+        )}
+      </h2>
+      <p class="text-[var(--color-text-muted)] mt-2">
+        {description}
+      </p>
+    </div>
+    {featured && (
+      <span class="px-2 py-1 text-xs bg-[var(--color-accent)] text-white rounded shrink-0">
+        Featured
+      </span>
+    )}
+  </div>
+
+  <div class="flex flex-wrap items-center gap-4 mt-4">
+    {tags.length > 0 && (
+      <div class="flex flex-wrap gap-2">
+        {tags.map((tag) => (
+          <span class="px-2 py-0.5 text-xs bg-[var(--color-border)] rounded">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+
+    {repo && (
+      <a
+        href={repo}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-accent)]"
+      >
+        GitHub &rarr;
+      </a>
+    )}
+
+    {year && (
+      <span class="text-sm text-[var(--color-text-muted)]">
+        {year}
+      </span>
+    )}
+
+    <span
+      class:list={[
+        "text-xs px-2 py-0.5 rounded",
+        {
+          "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200":
+            status === "active",
+          "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200":
+            status === "maintained",
+          "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300":
+            status === "archived",
+        },
+      ]}
+    >
+      {status}
+    </span>
+  </div>
+</div>

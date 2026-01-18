@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Now"
+  description="What I'm currently focused on and working on right now."
+>
+  <article class="prose max-w-none">
+    <h1 class="text-4xl font-bold mb-8">Now</h1>
+
+    <p class="text-lg mb-8">
+      What I'm currently focused on. Inspired by{" "}
+      <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer">
+        nownownow.com
+      </a>.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Working On</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li>
+        Building tools for structured LLM outputs in PHP with{" "}
+        <a href="https://github.com/adrienbrault/instructrice">Instructrice</a>
+      </li>
+      <li>
+        Exploring practical applications of AI agents for developer productivity
+      </li>
+      <li>
+        This personal site - sharing learnings and building in public
+      </li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Learning</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li>
+        Latest advancements in LLM reasoning and tool use
+      </li>
+      <li>
+        Edge computing patterns with Cloudflare Workers
+      </li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Reading</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li>
+        Technical papers on LLM architectures and training
+      </li>
+      <li>
+        Engineering blogs from companies solving interesting problems
+      </li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Location</h2>
+    <p>
+      Based in France, working remotely.
+    </p>
+
+    <p class="mt-8 text-[var(--color-text-muted)] italic">
+      Last updated: January 2026
+    </p>
+  </article>
+</BaseLayout>

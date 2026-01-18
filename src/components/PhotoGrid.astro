@@ -1,0 +1,39 @@
+---
+import type { Photo } from "../lib/photos";
+import { getThumbUrl, getPhotoUrl } from "../lib/photos";
+
+interface Props {
+  collectionSlug: string;
+  photos: Photo[];
+}
+
+const { collectionSlug, photos } = Astro.props;
+---
+
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+  {photos.map((photo) => (
+    <a
+      href={getPhotoUrl(collectionSlug, photo.filename)}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="group block aspect-square overflow-hidden rounded-lg bg-[var(--color-border)]"
+    >
+      <img
+        src={getThumbUrl(collectionSlug, photo.filename)}
+        alt={photo.alt}
+        loading="lazy"
+        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+    </a>
+  ))}
+</div>
+
+{photos.some((p) => p.caption) && (
+  <div class="mt-6 space-y-2 text-sm text-[var(--color-text-muted)]">
+    {photos.filter((p) => p.caption).map((photo) => (
+      <p>
+        <strong>{photo.alt}:</strong> {photo.caption}
+      </p>
+    ))}
+  </div>
+)}

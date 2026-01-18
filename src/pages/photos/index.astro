@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getAllCollections, getCoverUrl } from "../../lib/photos";
+
+const collections = getAllCollections();
+---
+
+<BaseLayout
+  title="Photos"
+  description="Photo collections from travels and everyday moments."
+>
+  <h1 class="text-4xl font-bold mb-4">Photos</h1>
+  <p class="text-lg text-[var(--color-text-muted)] mb-8">
+    Collections from travels and everyday moments.
+  </p>
+
+  {collections.length === 0 ? (
+    <p class="text-[var(--color-text-muted)]">
+      Photo collections coming soon!
+    </p>
+  ) : (
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {collections.map((collection) => (
+        <a
+          href={`/photos/${collection.slug}`}
+          class="group block overflow-hidden rounded-lg border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-colors"
+        >
+          <div class="aspect-[3/2] overflow-hidden bg-[var(--color-border)]">
+            <img
+              src={getCoverUrl(collection)}
+              alt={collection.title}
+              loading="lazy"
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          </div>
+          <div class="p-4">
+            <h2 class="text-xl font-semibold group-hover:text-[var(--color-accent)]">
+              {collection.title}
+            </h2>
+            <div class="flex items-center gap-2 mt-1 text-sm text-[var(--color-text-muted)]">
+              <span>{collection.date}</span>
+              {collection.location && (
+                <>
+                  <span>&middot;</span>
+                  <span>{collection.location}</span>
+                </>
+              )}
+            </div>
+            {collection.description && (
+              <p class="mt-2 text-[var(--color-text-muted)]">
+                {collection.description}
+              </p>
+            )}
+          </div>
+        </a>
+      ))}
+    </div>
+  )}
+</BaseLayout>
