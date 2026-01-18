@@ -108,7 +108,7 @@ Goal: Production quality
 - [ ] Search with Pagefind (when 15+ posts)
 - [ ] Comments with Giscus
 - [ ] Newsletter signup
-- [ ] Automated OG image generation
+- [x] Automated OG image generation (satori + resvg at build time)
 - [ ] Photo lightbox component (React)
 
 ---
