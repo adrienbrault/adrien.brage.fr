@@ -50,7 +50,7 @@ Goal: Ship something live with proper structure
 
 ### Testing & Verification
 - [x] Build completes without errors (`bun build` passes)
-- [ ] Type checking passes (optional: `bun run check`)
+- [x] Type checking passes (`bun run check` - 0 errors, 0 warnings, 0 hints)
 - [x] Dark mode works without flash (inline script in head)
 - [x] All pages render correctly
 - [x] RSS feed is valid
@@ -62,20 +62,21 @@ Goal: Ship something live with proper structure
 Goal: Easy to add content
 
 ### Photo Infrastructure
-- [ ] Set up R2 bucket structure (documented)
-- [ ] Create photo data model (src/lib/photos.ts)
-- [ ] Build photo gallery page
-- [ ] Add lightbox component (React)
+- [x] Create photo data model (src/lib/photos.ts)
+- [x] Build photo gallery page (/photos)
+- [x] Build photo collection page (/photos/[slug])
+- [x] Add PhotoGrid component
+- [ ] Add lightbox component (React) - optional enhancement
 
 ### Additional Pages
 - [x] Projects page with inline project cards
-- [ ] /uses page
-- [ ] /now page
+- [x] /uses page (tools, hardware, software)
+- [x] /now page (current focus)
 
 ### Components
-- [ ] PostCard component (extracted)
-- [ ] ProjectCard component (extracted)
-- [ ] PhotoGrid component
+- [x] PostCard component (extracted, supports default and compact variants)
+- [x] ProjectCard component (extracted)
+- [x] PhotoGrid component
 
 ---
 
@@ -84,19 +85,21 @@ Goal: Easy to add content
 Goal: Production quality
 
 ### Design
-- [ ] Refine typography and spacing
-- [ ] Add micro-interactions (respect prefers-reduced-motion)
-- [ ] Mobile responsiveness check
+- [x] Refine typography and spacing (improved prose styles, line-height, margins)
+- [x] Add micro-interactions (respect prefers-reduced-motion)
+- [x] Mobile responsiveness check (header wraps nicely on small screens)
 
 ### Accessibility
 - [x] Keyboard navigation (focusable elements)
 - [x] Focus states visible (:focus-visible)
-- [ ] Color contrast passes WCAG AA
+- [x] Color contrast passes WCAG AA (improved muted text to 7.5:1 ratio)
 - [x] Skip-to-content link
+- [x] Selection styling for better visibility
 
 ### Performance
-- [ ] Lighthouse audit
-- [ ] Core Web Vitals check
+- [x] Smooth scrolling with reduced-motion support
+- [ ] Lighthouse audit (manual verification needed)
+- [ ] Core Web Vitals check (manual verification needed)
 
 ---
 
@@ -105,13 +108,14 @@ Goal: Production quality
 - [ ] Search with Pagefind (when 15+ posts)
 - [ ] Comments with Giscus
 - [ ] Newsletter signup
-- [ ] Automated OG image generation
+- [x] Automated OG image generation (satori + resvg at build time)
+- [ ] Photo lightbox component (React)
 
 ---
 
 ## Current Focus
 
-**Working on:** Phase 1 complete - ready for content and polish
+**Working on:** Phase 3 complete - ready for deployment
 
 **Blockers:** None
 
@@ -121,6 +125,7 @@ Goal: Production quality
 - Tailwind v4 with Vite plugin (not deprecated @astrojs/tailwind)
 - Astro 5 content collections use `glob()` loader and `id` (not `slug`)
 - Cloudflare Pages deployment will be done manually at the end
+- Photo collections: add photos to R2, then update src/lib/photos.ts
 
 ---
 
@@ -132,3 +137,6 @@ Track significant commits here for reference:
 |------|--------|-------------|
 | 2026-01-18 | a7fffbd | docs: add CLAUDE.md and PROGRESS.md |
 | 2026-01-18 | 8f5be33 | feat: initialize Astro 5 site with complete Phase 1 foundation |
+| 2026-01-18 | 2deefa2 | docs: add photo infrastructure and deployment sections to CLAUDE.md |
+| 2026-01-18 | e946232 | chore(deps): add @astrojs/check for type checking |
+| 2026-01-18 | 836bf4d | feat: complete Phase 2 content infrastructure |

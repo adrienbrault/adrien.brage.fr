@@ -29,7 +29,7 @@ const nextPost = sortedPosts[currentIndex - 1]; // newer
   type="article"
   publishedAt={post.data.publishedAt}
   updatedAt={post.data.updatedAt}
-  ogImage={post.data.ogImage}
+  ogImage={post.data.ogImage ?? `/og/blog/${post.id}.png`}
   canonicalUrl={post.data.canonicalUrl}
 >
   <article>
@@ -118,6 +118,7 @@ const nextPost = sortedPosts[currentIndex - 1]; // newer
 
   <!-- BlogPosting JSON-LD -->
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       "@context": "https://schema.org",
