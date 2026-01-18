@@ -256,12 +256,67 @@ Use `PROGRESS.md` in the repo root to track implementation status. Update it as 
 5. **Performance**: Minimize client-side JS; Astro's strength is static HTML
 6. **Build is truth**: Always run `bun build` to verify changes work
 
+## Photo Infrastructure
+
+Photos are stored in Cloudflare R2 and served via custom domain.
+
+### R2 Bucket Structure
+```
+adrienbrault-assets/
+├── photos/
+│   ├── {collection-slug}/
+│   │   ├── full/      # 2000-2500px, 80% quality JPEG
+│   │   └── thumb/     # 600px, 70% quality JPEG
+├── og/                # Generated OG images
+└── misc/              # Other assets
+```
+
+### Photo Data Model
+```typescript
+// src/lib/photos.ts
+export const ASSET_BASE = "https://adrien-assets.brage.fr";
+
+export interface Photo {
+  filename: string;
+  alt: string;
+  caption?: string;
+}
+
+export interface PhotoCollection {
+  slug: string;
+  title: string;
+  date: string;
+  cover: string;
+  photos: Photo[];
+}
+```
+
+### Photo Workflow
+1. Export from Lightroom to iCloud folder (full/ and thumb/ sizes)
+2. Run sync script: `./scripts/sync-photos.sh`
+3. Update `src/lib/photos.ts` with new collection
+4. Commit and push
+
+## Deployment
+
+### Cloudflare Pages
+- Build command: `bun run build`
+- Output directory: `dist`
+- Node version: 20.x
+- Custom domain: `adrien.brage.fr`
+
+### Environment Variables (if needed)
+```
+SITE_URL=https://adrien.brage.fr
+```
+
 ## External Resources
 
 - Site: `adrien.brage.fr`
 - Assets CDN: `adrien-assets.brage.fr` (Cloudflare R2)
 - GitHub: `adrienbrault`
 - Twitter: `@AdrienBrault`
+- LinkedIn: `adrienbrault`
 
 ## Quick Reference
 

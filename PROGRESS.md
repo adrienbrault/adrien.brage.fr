@@ -131,4 +131,4 @@ Track significant commits here for reference:
 | Date | Commit | Description |
 |------|--------|-------------|
 | 2026-01-18 | a7fffbd | docs: add CLAUDE.md and PROGRESS.md |
-| 2026-01-18 | (pending) | feat: complete Phase 1 foundation |
+| 2026-01-18 | 8f5be33 | feat: initialize Astro 5 site with complete Phase 1 foundation |
