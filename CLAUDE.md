@@ -16,11 +16,16 @@ Personal static site for Adrien Brault at `adrien.brage.fr`. Built with Astro, T
 
 ## Commands
 
+**IMPORTANT:** Use `bun run <script>` (not `bun <script>`) for build/preview - `bun build` invokes Bun's bundler, not the npm script!
+
 ```bash
+# Setup
+bun install          # Install dependencies (run first if node_modules missing)
+
 # Development
-bun dev              # Start dev server at localhost:4321
-bun build            # Build for production (PRIMARY FEEDBACK LOOP)
-bun preview          # Preview production build locally
+bun dev              # Start dev server at localhost:4321 (shorthand works)
+bun run build        # Build for production (PRIMARY FEEDBACK LOOP)
+bun run preview      # Preview production build locally
 
 # Utilities
 bun run check        # Run Astro type checking (requires @astrojs/check)
@@ -208,12 +213,12 @@ Since Cloudflare Pages deployment happens only at the end, use these feedback lo
 
 ### 1. Build Verification (PRIMARY)
 ```bash
-bun build            # Must complete without errors
+bun run build        # Must complete without errors
 ```
 
 ### 2. Preview Testing
 ```bash
-bun preview          # Test production build locally at localhost:4321
+bun run preview      # Test production build locally at localhost:4321
 ```
 
 ### 3. Type Checking (Optional)
@@ -223,7 +228,7 @@ bun run check        # Astro's built-in type checker
 
 ### 4. Manual Verification Checklist
 Before committing significant changes:
-- [ ] `bun build` completes without errors
+- [ ] `bun run build` completes without errors
 - [ ] Dark mode toggle works (no flash on load)
 - [ ] All links work (no 404s)
 - [ ] Images load correctly
@@ -254,7 +259,7 @@ Use `PROGRESS.md` in the repo root to track implementation status. Update it as 
 3. **Minimal dependencies**: Bun has built-in capabilities; avoid adding packages unless truly needed
 4. **Privacy-focused**: No tracking except Cloudflare Web Analytics (added post-deploy)
 5. **Performance**: Minimize client-side JS; Astro's strength is static HTML
-6. **Build is truth**: Always run `bun build` to verify changes work
+6. **Build is truth**: Always run `bun run build` to verify changes work
 
 ## Photo Infrastructure
 
@@ -322,9 +327,10 @@ SITE_URL=https://adrien.brage.fr
 
 | Task | Command |
 |------|---------|
+| Install deps | `bun install` |
 | Start dev server | `bun dev` |
-| Build site | `bun build` |
-| Preview build | `bun preview` |
+| Build site | `bun run build` |
+| Preview build | `bun run preview` |
 | Type check | `bun run check` |
 | New blog post | Create file in `src/content/blog/` |
 | Update progress | Edit `PROGRESS.md` |

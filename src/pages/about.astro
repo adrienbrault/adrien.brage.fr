@@ -4,86 +4,76 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <BaseLayout
   title="About"
-  description="Learn more about Adrien Brault - a principal-level engineer with a product mindset, focused on breadth over depth."
+  description="Adrien Brault - engineer focused on simplicity, architecture, and shipping products that matter."
 >
   <article class="prose max-w-none">
     <h1 class="text-4xl font-bold mb-8">About Me</h1>
 
     <p class="text-lg mb-6">
-      I'm a principal-level engineer who ships products across the stack. I
-      thrive in the age of AI-assisted development, leveraging tools to move
-      faster while maintaining high quality.
+      I'm an engineer who believes complexity is a cost that compounds.
+      Simplicity enables speed. The investment in simplicity pays back on every future change.
     </p>
 
-    <h2 class="text-2xl font-semibold mt-8 mb-4">What I Do</h2>
+    <h2 class="text-2xl font-semibold mt-8 mb-4">How I Think About Code</h2>
     <p>
-      My approach emphasizes <strong>breadth over depth</strong>—I'm comfortable
-      across the entire stack, from infrastructure to frontend, and I focus on
-      making the right architectural decisions rather than being tied to any
-      specific framework or language.
+      Code is a graph. Modules and functions are nodes, dependencies are edges.
+      I care about <strong>software architecture</strong> — how things connect at the system level —
+      more than the polish of individual functions. A messy function that's isolated? Fine.
+      A bad abstraction in a core module everything depends on? That's the real problem.
     </p>
 
     <p class="mt-4">
-      I bring a <strong>product mindset</strong> to engineering. The best code
-      solves real problems for real users. I care about shipping, iterating
-      based on feedback, and building things that matter.
+      Not all code deserves the same attention. I invest heavily where impact is high:
+      database schemas, core modules, type systems. I'm comfortable with mess in
+      one-off scripts, frontend experiments, or areas where the design is still uncertain.
+      <strong>The mess that matters is the mess that spreads.</strong>
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Product Sense</h2>
+    <p>
+      Technical judgment without product context is meaningless. Every technical decision
+      is a bet on what the software needs to do. I develop product sense by using software
+      until it doesn't feel shitty, talking to customers directly, and understanding why
+      priorities are what they are.
     </p>
 
     <h2 class="text-2xl font-semibold mt-8 mb-4">Current Interests</h2>
     <ul class="list-disc pl-6 space-y-2">
       <li>
-        <strong>LLMs and AI tooling</strong> - Practical applications, not hype.
-        Building typed outputs, structured generation, and developer tools.
+        <strong>LLMs and AI tooling</strong> — Practical applications, structured outputs,
+        developer tools. Building <a href="https://github.com/adrienbrault/instructrice">Instructrice</a> for typed LLM outputs in PHP.
       </li>
       <li>
-        <strong>System design</strong> - Distributed systems, architecture
-        patterns, and trade-offs at scale.
+        <strong>Home automation</strong> — Building systems that actually work reliably,
+        not just demo well.
       </li>
       <li>
-        <strong>Developer experience</strong> - Making tools that help engineers
-        be more productive.
-      </li>
-    </ul>
-
-    <h2 class="text-2xl font-semibold mt-8 mb-4">Outside of Work</h2>
-    <ul class="list-disc pl-6 space-y-2">
-      <li>
-        <strong>3D Printing</strong> - Designing and printing functional parts,
-        contributing to the maker community.
-      </li>
-      <li>
-        <strong>Photography</strong> - Capturing moments, especially during
-        travels.
-      </li>
-      <li>
-        <strong>Home Automation</strong> - Building a smart home that actually
-        works reliably.
+        <strong>3D printing</strong> — Functional parts, not trinkets.
       </li>
     </ul>
 
     <h2 class="text-2xl font-semibold mt-8 mb-4">Connect</h2>
     <p>
-      Find me on{" "}
       <a
         href="https://github.com/adrienbrault"
         target="_blank"
         rel="noopener noreferrer">GitHub</a
-      >,{" "}
+      > ·{" "}
       <a
         href="https://twitter.com/AdrienBrault"
         target="_blank"
         rel="noopener noreferrer">Twitter</a
-      >,{" "}
+      > ·{" "}
       <a
         href="https://www.linkedin.com/in/adrien-brault-lesage-4b987426"
         target="_blank"
         rel="noopener noreferrer">LinkedIn</a
-      >, or{" "}
+      > ·{" "}
       <a
         href="https://www.printables.com/@AdrienBrault_1580788"
         target="_blank"
         rel="noopener noreferrer">Printables</a
-      >.
+      >
     </p>
   </article>
 </BaseLayout>
