@@ -1,12 +1,12 @@
 ---
 title: "IntelliJ Symfony Plugin"
-description: "Symfony framework integration for PhpStorm/IntelliJ - autocomplete for services, routes, Twig, Doctrine, and more"
+description: "PhpStorm/IntelliJ plugin for Symfony - 8M+ downloads, originally created by me and now maintained by Haehnchen"
 url: "https://plugins.jetbrains.com/plugin/7219-symfony-support"
 repo: "https://github.com/Haehnchen/idea-php-symfony2-plugin"
 tags: ["php", "symfony", "intellij", "devtools"]
 featured: false
 year: 2013
-status: archived
+status: maintained
 ---
 
 I created this PhpStorm/IntelliJ plugin to bring Symfony framework support to JetBrains IDEs - autocomplete for services, routes, Twig templates, Doctrine, annotations, and more.
