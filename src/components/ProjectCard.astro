@@ -48,20 +48,5 @@ const { title, description, url, repo, year, status } = Astro.props;
       </span>
     )}
 
-    <span
-      class:list={[
-        "text-xs px-2 py-0.5 rounded",
-        {
-          "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200":
-            status === "active",
-          "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200":
-            status === "maintained",
-          "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300":
-            status === "archived",
-        },
-      ]}
-    >
-      {status}
-    </span>
   </div>
 </div>
