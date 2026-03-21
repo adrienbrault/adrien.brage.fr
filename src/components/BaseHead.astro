@@ -24,7 +24,7 @@ const pageUrl = canonicalUrl ?? new URL(Astro.url.pathname, siteUrl).toString();
 const ogImageUrl = ogImage.startsWith("http")
   ? ogImage
   : new URL(ogImage, siteUrl).toString();
-const fullTitle = title === "Adrien Brault" ? title : `${title} | Adrien Brault`;
+const fullTitle = title === "Adrien Brault-Lesage" ? title : `${title} | Adrien Brault-Lesage`;
 ---
 
 <meta charset="utf-8" />
@@ -44,7 +44,7 @@ const fullTitle = title === "Adrien Brault" ? title : `${title} | Adrien Brault`
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImageUrl} />
-<meta property="og:site_name" content="Adrien Brault" />
+<meta property="og:site_name" content="Adrien Brault-Lesage" />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
@@ -65,7 +65,7 @@ const fullTitle = title === "Adrien Brault" ? title : `${title} | Adrien Brault`
 <link
   rel="alternate"
   type="application/rss+xml"
-  title="Adrien Brault's Blog"
+  title="Adrien Brault-Lesage's Blog"
   href={new URL("/rss.xml", siteUrl).toString()}
 />
 

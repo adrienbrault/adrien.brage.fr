@@ -3,7 +3,7 @@ import { generateOgImage } from "../../lib/og";
 
 export const GET: APIRoute = async () => {
   const png = await generateOgImage({
-    title: "Adrien Brault",
+    title: "Adrien Brault-Lesage",
     description:
       "Principal-level engineer who ships products across the stack. Writing about LLMs, TypeScript, and system design.",
     type: "website",

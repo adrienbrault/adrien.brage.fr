@@ -9,7 +9,7 @@ export async function GET(context: APIContext) {
   );
 
   return rss({
-    title: "Adrien Brault's Blog",
+    title: "Adrien Brault-Lesage's Blog",
     description:
       "Technical writing on LLMs, Python, TypeScript, React, system design, home automation, and more.",
     site: context.site?.toString() ?? "https://adrien.brage.fr",

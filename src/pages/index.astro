@@ -1,65 +1,62 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import PostCard from "../components/PostCard.astro";
-import { getCollection } from "astro:content";
-
-const posts = await getCollection("blog", ({ data }) => !data.draft);
-const recentPosts = posts
-  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
-  .slice(0, 3);
 ---
 
 <BaseLayout
-  title="Adrien Brault"
-  description="Engineer focused on simplicity, architecture, and shipping products that matter."
+  title="Adrien Brault-Lesage"
+  description="Adrien Brault-Lesage — software engineer based near Paris, founding engineer at Sluicebox.ai."
 >
-  <section class="py-8">
-    <h1 class="text-4xl font-bold mb-4">Hey, I'm Adrien</h1>
-    <p class="text-xl text-[var(--color-text-muted)] mb-8 max-w-2xl">
-      Software engineer based near Paris. Currently founding engineer at
-      <a href="https://sluicebox.ai" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-accent)] transition-colors">Sluicebox.ai</a>,
-      building AI tools for manufacturing.
-    </p>
-    <div class="flex gap-4">
-      <a
-        href="/about"
-        class="inline-block px-4 py-2 bg-[var(--color-accent)] text-white rounded-md hover:opacity-90 transition-opacity"
-      >
-        About me
-      </a>
-      <a
-        href="/blog"
-        class="inline-block px-4 py-2 border border-[var(--color-border)] rounded-md hover:border-[var(--color-accent)] transition-colors"
-      >
-        Read the blog
-      </a>
-    </div>
-  </section>
+  <article class="prose max-w-none">
+    <h1 class="text-4xl font-bold mb-8">Hey, I'm Adrien</h1>
 
-  {
-    recentPosts.length > 0 && (
-      <section class="py-8 border-t border-[var(--color-border)]">
-        <h2 class="text-2xl font-semibold mb-6">Recent Posts</h2>
-        <ul class="space-y-4">
-          {recentPosts.map((post) => (
-            <li>
-              <PostCard
-                id={post.id}
-                title={post.data.title}
-                description={post.data.description}
-                publishedAt={post.data.publishedAt}
-                variant="compact"
-              />
-            </li>
-          ))}
-        </ul>
-        <a
-          href="/blog"
-          class="inline-block mt-6 text-[var(--color-accent)] hover:underline"
-        >
-          View all posts &rarr;
-        </a>
-      </section>
-    )
-  }
+    <p class="text-lg mb-6">
+      Software engineer based near Paris. I've been writing code professionally
+      since around 2011 — mostly backend work, PHP and Symfony for a long time,
+      TypeScript and Python more recently.
+    </p>
+
+    <p class="mb-6">
+      I'm currently founding engineer at{" "}
+      <a href="https://sluicebox.ai" target="_blank" rel="noopener noreferrer">Sluicebox.ai</a>,
+      where I build the product and platform end-to-end. Small team, manufacturing industry,
+      lots of LLMs and PostgreSQL and figuring out what actually matters to customers.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Interests</h2>
+    <ul class="list-disc pl-6 space-y-2">
+      <li>
+        <strong>Home automation</strong> — Home Assistant, Zigbee, ESPHome.
+      </li>
+      <li>
+        <strong>3D printing</strong> — functional parts mostly.
+      </li>
+      <li>
+        <strong>Photography</strong>
+      </li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold mt-8 mb-4">Connect</h2>
+    <p>
+      <a
+        href="https://github.com/adrienbrault"
+        target="_blank"
+        rel="noopener noreferrer">GitHub</a
+      > ·{" "}
+      <a
+        href="https://twitter.com/AdrienBrault"
+        target="_blank"
+        rel="noopener noreferrer">Twitter</a
+      > ·{" "}
+      <a
+        href="https://www.linkedin.com/in/adrien-brault-lesage-4b987426"
+        target="_blank"
+        rel="noopener noreferrer">LinkedIn</a
+      > ·{" "}
+      <a
+        href="https://www.printables.com/@AdrienBrault_1580788"
+        target="_blank"
+        rel="noopener noreferrer">Printables</a
+      >
+    </p>
+  </article>
 </BaseLayout>
